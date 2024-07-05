@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.19)
 
+option(BUILD_SHARED_LIBS "Build Vira as shared library" OFF)
+
 if(UNIX AND NOT APPLE)
     # If on Linux:
     if (NOT (CMAKE_BUILD_TYPE STREQUAL "Debug") AND NOT (CMAKE_BUILD_TYPE STREQUAL "Release"))
@@ -20,7 +22,9 @@ project(vira LANGUAGES CXX VERSION 0.8.0)
 set(CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
-set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
+if (BUILD_SHARED_LIBS)
+    set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
+endif()
 
 # Add the included directories:
 include_directories(include)
