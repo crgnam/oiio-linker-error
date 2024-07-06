@@ -7,7 +7,7 @@
   "overrides": [
     {
       "name": "openimageio",
-      "version": "2.5.8.0#2"
+      "version": "2.5.12.0#1"
     }
   ],
   "builtin-baseline": "352c108a6b6d698c09a8272d8e95fdce550ae408"
