@@ -1,21 +1,23 @@
 cmake_minimum_required(VERSION 3.19)
 
-option(BUILD_SHARED_LIBS "Build mylib as shared library" OFF)
-
 project(example LANGUAGES CXX VERSION 0.8.0)
 set(CXX_STANDARD 20)
-set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
-if (BUILD_SHARED_LIBS)
-    set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
-endif()
 
-# Add the included directories:
-include_directories(include)
+include_directories(.)
 
-# Add source directories:
-add_subdirectory(source/mylib)
-add_subdirectory(source/myapp)
 
-# Copy example data so that example program can run:
-file(COPY data DESTINATION ${CMAKE_BINARY_DIR})
+# Build and link my library:
+add_library(mylib STATIC mylib.cpp)
+
+find_package(OpenImageIO CONFIG REQUIRED)
+target_link_libraries(mylib PRIVATE OpenImageIO::OpenImageIO)
+
+# THESE APPEAR TO WORK WHEN OPENIMAGEIO IS INSTALLED WITH: sudo apt install libopenimageio-dev:
+#find_library(OIIO OpenImageIO)
+#target_link_libraries(mylib PRIVATE ${OIIO})
+
+
+# Build and link Executable:
+add_executable(myapp myapp.cpp)
+target_link_libraries(myapp PRIVATE mylib)
