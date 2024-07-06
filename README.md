@@ -1,3 +1,6 @@
+# Update
+Updating to version 2.5.12.0#2 resolved the issue.
+
 # Minimal Working Example
 
 When I install OpenImageIO with vcpkg, and link it to a library, the library builds and links without issue.  When I then link that library with an executable, the linker (`ld`) on ubuntu fails with many `undefined reference to 'boost::filesystem::` errors.  This does not happen on Windows with MSVC.
